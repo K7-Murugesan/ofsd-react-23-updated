@@ -13,7 +13,7 @@ const Products1 = () => {
   useEffect(() => {  // Mounting
     let fetchData = async () => {
       try{
-        let res = await fetch("https://fakestoreapi.com/products")
+        let res = await fetch("http://localhost:4000/products")
 
         if( !res.ok ){
             throw  new Error ( "Network Issues..." )
@@ -58,7 +58,7 @@ const Products1 = () => {
                 key={product.id}
               >
                 <article>
-                  <Card.Img variant="top" src={product.image} />
+                  <Card.Img variant="top" src={product.images[0]} />
                   <Card.Body>
                     <Card.Title>{product.title}</Card.Title>
                     <Card.Text> {product.category}</Card.Text>

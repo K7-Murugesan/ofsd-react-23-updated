@@ -28,6 +28,9 @@ function NavBar1() {
               <Nav.Link as={Link} to="/sign-up">
                 SignUp
               </Nav.Link>
+              <Nav.Link as={Link} to="/create-product">
+                Add Product
+              </Nav.Link>
             </Nav>
             <Form className="d-flex">
               <Form.Control
