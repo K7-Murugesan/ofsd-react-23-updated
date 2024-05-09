@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -6,58 +6,49 @@ import Box from "@mui/material/Box";
 
 import Container from "@mui/material/Container";
 import { Grid, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import axios from "axios";
 
-const CreateProduct = () => {
-  let [product, setProduct] = useState( {
-    title : '',
-    description : "",
-    price : 50,
-    discountPercentage : 25,
-    rating : 6.5,
-    stock : 500,
-    brand : "",
-    category : "",
-    thumbnail : "https://cdn.dummyjson.com/product-images/1/thumbnail.jpg",
-    images : ["https://cdn.dummyjson.com/product-images/1/1.jpg"]
-  }  )
+const UpdateProduct = () => {
 
-  let navigate = useNavigate();
+    let [product, setProduct] = useState( {} )
+    
+      let navigate = useNavigate();
 
-  let handleChange = (e) => {
-      let { name, value } = e.target
-      setProduct(  { ...product, [name] : value  }   )
-  }
+     let {id} =  useParams();
 
-  let handleSubmit = (e) => {
-      e.preventDefault();
-      console.log( product );
+    useEffect( ()=>{
+        axios.get( `http://localhost:4000/products/${id}` )
+        .then ( res => setProduct( res.data ) ) 
+    }, [] )
 
-      fetch( "http://localhost:4000/products", {
-        method : "POST",
-        headers : {
-          "Content-type" : "application/json"
-        },
-        body : JSON.stringify( product )
-      } )
-      .then( ()=> {
-        Swal.fire({
-          title: "Good job!",
-          text: "Successfully Added!",
-          icon: "success"
-        });
-        navigate( "/products" )
-      } )
-      .catch( (err)=>{
-        Swal.fire({
-          title: "Error!",
-          text: "Data Not added!",
-          icon: "error"
-        });
-      }   )
-  }
+    let handleChange = (e) =>{
+        let {name,value} = e.target
+        setProduct( { ...product, [name] : value } )
+    }
 
+    let handleUpdate = (e) => {
+        e.preventDefault();
+
+        axios.put( `http://localhost:4000/products/${id}`, product )
+        .then( ()=> {
+            Swal.fire({
+                title: "Good job!",
+                text: "Data Updated Successfully!",
+                icon: "success"
+              });
+              navigate( "/products" )
+        } )
+        .catch( (err)=>{
+            Swal.fire({
+                title: err.message,
+                text: "Update Properly!",
+                icon: "error"
+              });
+        } )
+
+    }
 
   return (
     <div>
@@ -72,13 +63,13 @@ const CreateProduct = () => {
           }}
         >
           <Typography component="h1" variant="h5">
-            Create New Product
+            Update Your Product
           </Typography>
           <Box
             component="form"
             noValidate
             sx={{ mt: 3 }}
-            onSubmit={ handleSubmit  }
+            onSubmit={ handleUpdate }
           >
             <TextField
               required
@@ -187,13 +178,13 @@ const CreateProduct = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Add Item
+              SAVE
             </Button>
           </Box>
         </Box>
       </Container>
     </div>
-  );
-};
+  )
+}
 
-export default CreateProduct;
+export default UpdateProduct

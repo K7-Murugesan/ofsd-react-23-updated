@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { MdAddShoppingCart } from "react-icons/md";
+import { FaRegEdit } from "react-icons/fa";
+import { RiDeleteBin6Fill } from "react-icons/ri";
+import axios from "axios";
+import Swal from "sweetalert2";
 const Products1 = () => {
   // JSON - Javascript Object Notation - {  }
 
   let [products, setProducts] = useState([]);
   let[error,setError] = useState( null );
   let[isLoading, setIsLoading] = useState( true )
+
+  let navigate = useNavigate(  )
 
   useEffect(() => {  // Mounting
     let fetchData = async () => {
@@ -32,6 +38,18 @@ const Products1 = () => {
     };
     fetchData();
   }, []);
+
+  let handleDelete = (id) => {
+      axios.delete( "http://localhost:4000/products/"+id )
+      .then( ()=>{
+        Swal.fire({
+          title: "Good job!",
+          text: "Successfully Removed!",
+          icon: "success"
+        });
+        window.location.reload();
+      } )
+  }
 
   if( isLoading ){
     return <div> Loading..... </div>
@@ -67,8 +85,18 @@ const Products1 = () => {
                   </Card.Body>
                 </article>
                 <hr />
-                <center>
-                  <Button variant="primary">Add to Card</Button>
+                <center >
+                  <Button className="mx-2" variant="primary">
+                    <MdAddShoppingCart/>
+                  </Button>
+                  <Button className="mx-2" variant="primary" 
+                    onClick={ ()=> navigate( `/update/${product.id}` ) }>
+                    <FaRegEdit/>
+                  </Button>
+                  <Button className="mx-2" variant="primary" 
+                    onClick={ ()=> handleDelete( product.id ) }>
+                    <RiDeleteBin6Fill/>
+                  </Button>
                 </center>
               </Card>
             ))}
