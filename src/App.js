@@ -11,9 +11,13 @@ import {
 } from "react-router-dom";
 import SignUp from "./components/SignUp";
 import UpdateProduct from "./components/UpdateProduct";
+import { Provider } from "react-redux";
+import store from "./store/store";
+import WishList from "./components/WishList";
 
 function App() {
   return (
+    <Provider store={ store } >
       <Router>
         <ManageRoute>
           <Route exact path="/" element={<NavBar1 />}>
@@ -22,10 +26,12 @@ function App() {
             <Route path="/products" element={<Products1 />} />
             <Route  path="/create-product" element = { <CreateProduct/> } />
             <Route path="/update/:id" element={ <UpdateProduct/> }/>
+            <Route path="/wishlist" element={ <WishList/> } />
           </Route>
           <Route path="*" element={<NotFound />} />
         </ManageRoute>
       </Router>
+    </Provider>
   );
 }
 

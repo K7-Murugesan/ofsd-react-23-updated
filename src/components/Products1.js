@@ -7,6 +7,9 @@ import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../store/cartSlice";
+import { IoArrowBackCircleSharp } from "react-icons/io5";
 const Products1 = () => {
   // JSON - Javascript Object Notation - {  }
 
@@ -51,6 +54,12 @@ const Products1 = () => {
       } )
   }
 
+  let dispatch = useDispatch()
+
+  let addToCartDispatcher = (product) => {
+      dispatch( addToCart( product ) )
+  }
+
   if( isLoading ){
     return <div> Loading..... </div>
   }
@@ -62,9 +71,9 @@ const Products1 = () => {
   return (
       <div className="container">
         <div className="d-flex justify-content-between">
-          <Button as={Link} to="/" variant="primary">
-            Back to Home
-          </Button>
+            <Button variant="secondary" style={{height:"30px",width:"100px"}} onClick={ ()=>navigate("/") }>
+              <IoArrowBackCircleSharp />
+            </Button>
           <h1> Total Products : {products.length} </h1>
         </div>
         <section className="row">
@@ -76,7 +85,7 @@ const Products1 = () => {
                 key={product.id}
               >
                 <article>
-                  <Card.Img variant="top" src={product.images[0]} />
+                  <Card.Img variant="top" src={product.images[0]}  />
                   <Card.Body>
                     <Card.Title>{product.title}</Card.Title>
                     <Card.Text> {product.category}</Card.Text>
@@ -84,9 +93,9 @@ const Products1 = () => {
                     <Card.Text> {product.price}</Card.Text>
                   </Card.Body>
                 </article>
-                <hr />
-                <center >
-                  <Button className="mx-2" variant="primary">
+               
+                <Card.Footer >
+                  <Button className="mx-2" variant="primary" onClick={ ()=> addToCartDispatcher(product) }>
                     <MdAddShoppingCart/>
                   </Button>
                   <Button className="mx-2" variant="primary" 
@@ -97,7 +106,7 @@ const Products1 = () => {
                     onClick={ ()=> handleDelete( product.id ) }>
                     <RiDeleteBin6Fill/>
                   </Button>
-                </center>
+                </Card.Footer>
               </Card>
             ))}
         </section>
