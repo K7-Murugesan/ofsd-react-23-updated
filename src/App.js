@@ -16,6 +16,11 @@ import store from "./store/store";
 import WishList from "./components/WishList";
 
 function App() {
+
+  if( !localStorage.getItem( "cart" ) ){
+    localStorage.setItem( "cart", JSON.stringify( { items : [] } ))
+  }
+
   return (
     <Provider store={ store } >
       <Router>
