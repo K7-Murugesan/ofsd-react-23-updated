@@ -18,7 +18,7 @@ import WishList from "./components/WishList";
 function App() {
 
   if( !localStorage.getItem( "cart" ) ){
-    localStorage.setItem( "cart", JSON.stringify( { items : [] } ))
+    localStorage.setItem( "cart", JSON.stringify( [] )) // { items : [] }
   }
 
   return (

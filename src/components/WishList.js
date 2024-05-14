@@ -23,7 +23,7 @@ const DemoPaper = styled(Paper)(({ theme }) => ({
 const WishList = () => {
   let reduxState = useSelector((state) => state.cart);
 
-  console.log(reduxState);
+  // console.log(reduxState);
 
   let navigate = useNavigate()
   let dispatch = useDispatch();

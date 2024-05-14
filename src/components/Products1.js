@@ -10,38 +10,42 @@ import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../store/cartSlice";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
+import useFetch from "./customHook/useFetch";
 const Products1 = () => {
   // JSON - Javascript Object Notation - {  }
 
-  let [products, setProducts] = useState([]);
-  let[error,setError] = useState( null );
-  let[isLoading, setIsLoading] = useState( true )
+  // let [products, setProducts] = useState([]);
+  // let[error,setError] = useState( null );
+  // let[isLoading, setIsLoading] = useState( true )
 
+  
   let navigate = useNavigate(  )
+  
+  // 
+  //   let fetchData = async () => {
+  //     try{
+    //       let res = await fetch("http://localhost:4000/products")
 
-  useEffect(() => {  // Mounting
-    let fetchData = async () => {
-      try{
-        let res = await fetch("http://localhost:4000/products")
+  //       if( !res.ok ){
+  //           throw  new Error ( "Network Issues..." )
+  //       }
 
-        if( !res.ok ){
-            throw  new Error ( "Network Issues..." )
-        }
+  //       let data = await res.json();
+  //       setProducts(data);
 
-        let data = await res.json();
-        setProducts(data);
-
-      }
-      catch(err){
-        setError( err.message ); 
-      }
-      finally{
-        setIsLoading( false )
-      }
-    };
-    fetchData();
-  }, []);
-
+  //     }
+  //     catch(err){
+  //       setError( err.message ); 
+  //     }
+  //     finally{
+    //       setIsLoading( false )
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
+  
+  let [ apiData, isLoading, error ] =  useFetch( "http://localhost:4000/products" ) // { apiData, error, isLoading }
+  
   let handleDelete = (id) => {
       axios.delete( "http://localhost:4000/products/"+id )
       .then( ()=>{
@@ -74,11 +78,11 @@ const Products1 = () => {
             <Button variant="secondary" style={{height:"30px",width:"100px"}} onClick={ ()=>navigate("/") }>
               <IoArrowBackCircleSharp />
             </Button>
-          <h1> Total Products : {products.length} </h1>
+          <h1> Total Products : {apiData.length} </h1>
         </div>
         <section className="row">
-          {products !== null &&
-            products.map((product) => (
+          {apiData !== null &&
+            apiData.map((product) => (
               <Card
                 style={{ width: "18rem", height: "auto" }}
                 className="m-3 d-grid align-item-between"
