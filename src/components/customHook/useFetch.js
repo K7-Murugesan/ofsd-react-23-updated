@@ -27,7 +27,7 @@ let useFetch = (URL) => {
 
   }, []);
 
-  return [ apiData, isLoading, error ];
+  return { apiData, isLoading, error };
 };
 
 export default useFetch;

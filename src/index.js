@@ -4,12 +4,16 @@ import './index.css';
 import App from './App';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import UseRefCom from './components/UseRefCom';
+import Component1 from './components/lifeCycleMethods/Component1';
+import CleanUpFunction from './components/lifeCycleMethods/CleanUpFunction';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     {/* <App /> */}
-    <UseRefCom/>
+    {/* <UseRefCom/> */}
+    <Component1/>
+    <CleanUpFunction/>
   </React.StrictMode>
 );
 

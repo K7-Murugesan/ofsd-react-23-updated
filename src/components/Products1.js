@@ -44,7 +44,7 @@ const Products1 = () => {
   //   fetchData();
   // }, []);
   
-  let [ apiData, isLoading, error ] =  useFetch( "http://localhost:4000/products" ) // { apiData, error, isLoading }
+  let { apiData, isLoading, error } =  useFetch( "http://localhost:4000/products" ) // { apiData, error, isLoading }
   
   let handleDelete = (id) => {
       axios.delete( "http://localhost:4000/products/"+id )

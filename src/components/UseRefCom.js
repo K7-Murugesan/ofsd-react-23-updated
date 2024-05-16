@@ -26,11 +26,10 @@ const UseRefCom = () => {
         counter.current -=1
         // setDummyState( dummyState-1 )
         console.log( counter.current )
-    }
-
+    }    
   return (
     <div>
-       <h1> Without Rendering im gonna change the Style of Element</h1> 
+       <h1 > Without Rendering im gonna change the Style of Element</h1> 
         <input ref={ inputRef } type="text" placeholder='Name' /> <br />
         <Button variant='primary' onClick={ handleInput } > Change the Style </Button>
         <br />
