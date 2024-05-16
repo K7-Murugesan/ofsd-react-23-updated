@@ -28,7 +28,6 @@ const UseRefCom = () => {
         console.log( counter.current )
     }
 
-
   return (
     <div>
        <h1> Without Rendering im gonna change the Style of Element</h1> 
