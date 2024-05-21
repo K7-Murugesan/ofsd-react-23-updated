@@ -70,7 +70,6 @@ export default class Component1 extends Component {
 }
 
 
-
 class ChildComp extends Component{
 
     // timer (){ 
@@ -79,14 +78,20 @@ class ChildComp extends Component{
     //     console.log(  "Running", random  );
     // }, 2000 ) 
     // }
+    timer = null;
 
-    // componentDidMount(){
-    //     this.timer()
-    // }
+    componentDidMount(){
+       let random = Math.floor( Math.random()*100 )
+
+       this.timer = setInterval( ()=>{
+         console.log( "Number " + random );
+       },1000)
+    }
 
     componentWillUnmount(){
         // clearInterval( this.timer() )
         console.log( "Im Removed from dom" );
+        clearInterval( this.timer )
     }
     render(){
         return(
