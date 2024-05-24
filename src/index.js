@@ -11,11 +11,11 @@ import UseReducerComp from './components/hooks/UseReducerComp';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    {/* <App /> */}
+    <App />
     {/* <UseRefCom/> */}
     {/* <Component1/> */}
     {/* <CleanUpFunction/> */}
-    <UseReducerComp/>
+    {/* <UseReducerComp/> */}
   </React.StrictMode>
 );
 
